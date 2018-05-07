@@ -1,17 +1,40 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>Magna Móvil</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  <h5 class="home-title">Proyectos recientes</h5>
+
+
+  <!--Projects list-->
+  <ion-card>
+
+    <img src="../../assets/imgs/advance-card-map-madison.png">
+
+    <ion-item>
+      <ion-icon name="document" item-start large></ion-icon>
+      <h2>Nombre del proyecto</h2>
+      <p>Descripción del nuevo proyecto de magna movil para pruebas </p>
+    </ion-item>
+
+    <ion-item>
+      <span item-left>18 min</span>
+      <span item-left>(2.6 mi)</span>
+      <button ion-button icon-left clear item-end>
+        <ion-icon name="navigate"></ion-icon>
+        Start
+      </button>
+    </ion-item>
+
+  </ion-card>
+
+
+
+  <!--Create new Project-->
+  <ion-fab right bottom>
+    <button ion-fab color="secondary"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+
 </ion-content>
