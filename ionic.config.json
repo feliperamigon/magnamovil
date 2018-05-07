@@ -1,0 +1,8 @@
+{
+  "name": "magnaMobile",
+  "app_id": "5df60b6c",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
