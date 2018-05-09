@@ -5,36 +5,38 @@
 </ion-header>
 
 <ion-content padding>
-  <h5 class="home-title">Proyectos recientes</h5>
+  <h5 class="home-title">Puntos recientes</h5>
 
+  <ion-list>
+    <ion-item-sliding>
+      <ion-item>
+        <ion-avatar item-start>
+          <ion-icon class="point-icon" color="secondary" name="md-locate"></ion-icon>
+        </ion-avatar>
+        <h2 class="point-name">Punto X</h2>
+        <h3 class="point-date">Última actualización el 08/05/2018</h3>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button color="secondary">
+          <ion-icon name="md-brush"></ion-icon>
+          Editar
+        </button>
+        <button ion-button color="danger">
+          <ion-icon name="md-trash"></ion-icon>
+          Eliminar
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 
-  <!--Projects list-->
-  <ion-card>
-
-    <img src="../../assets/imgs/advance-card-map-madison.png">
-
-    <ion-item>
-      <ion-icon name="document" item-start large></ion-icon>
-      <h2>Nombre del proyecto</h2>
-      <p>Descripción del nuevo proyecto de magna movil para pruebas </p>
-    </ion-item>
-
-    <ion-item>
-      <span item-left>18 min</span>
-      <span item-left>(2.6 mi)</span>
-      <button ion-button icon-left clear item-end>
-        <ion-icon name="navigate"></ion-icon>
-        Start
-      </button>
-    </ion-item>
-
-  </ion-card>
 
 
 
   <!--Create new Project-->
   <ion-fab right bottom>
-    <button ion-fab color="secondary"><ion-icon name="add"></ion-icon></button>
+    <button ion-fab mini color="secondary" (click)="createPoint()">
+      <ion-icon name="add"></ion-icon>
+    </button>
   </ion-fab>
 
 </ion-content>

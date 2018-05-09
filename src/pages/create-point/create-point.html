@@ -1,0 +1,55 @@
+<!--
+  Generated template for the CreatePointPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Crear punto</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div class="create-buttons">
+    <button class="create-point-buttons" ion-button block color="secondary" (click)="getCurrentPosition();">
+      Obtener con mi ubicación actual
+    </button>
+
+    <button class="create-point-buttons" ion-button outline block color="secondary">
+      Crear un nuevo punto
+    </button>
+  </div>
+
+  <div class="create-results mat-elevation-z2" *ngIf="created">
+
+    <!-- Map preview of the point -->
+    <div #map id="map"></div>
+    <!-- End Map preview of the point -->
+
+    <h4 class="result-title">Datos obtenidos de la posición actual: </h4>
+    <p class="result-data">
+      <b>Latitud:</b> {{ gpsLat }}
+    </p>
+    <p class="result-data">
+      <b>Longitud:</b> {{ gpsLong }}
+    </p>
+
+    <div class="create-action-buttons">
+      <button ion-button outline color="danger" (click)="cleanData();">
+        Eliminar
+      </button>
+
+      <button ion-button outline color="primary" (click)="showCreatePrompt()">
+        Crear
+      </button>
+    </div>
+
+  </div>
+
+
+</ion-content>

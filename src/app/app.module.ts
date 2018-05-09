@@ -1,24 +1,36 @@
+// Ionic Core Modules
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { MyApp } from './app.component';
-import { NativeStorage} from "@ionic-native/native-storage";
 
+// ThirdParty libraries ( Cordova, Database, etc)
+import { NativeStorage} from "@ionic-native/native-storage";
+import { SQLite } from '@ionic-native/sqlite';
+import { Toast } from '@ionic-native/toast';
+import { Geolocation,  } from '@ionic-native/geolocation';
+
+// Custom pages components
+import { MyApp } from './app.component';
 import { AboutPage } from '../pages/about/about';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { CreatePointPage } from '../pages/create-point/create-point';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { ProvidersStorageProvider } from '../providers/providers-storage/providers-storage';
-import { ProvidersMagnaProvider } from '../providers/providers-magna/providers-magna';
+
+// Custom Providers
+import { MagnaProvider } from '../providers/magna/magna';
+import { DbmanagerProvider } from './../providers/dbmanager/dbmanager';
+
 
 @NgModule({
   declarations: [
     MyApp,
     AboutPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    CreatePointPage
   ],
   imports: [
     BrowserModule,
@@ -29,15 +41,19 @@ import { ProvidersMagnaProvider } from '../providers/providers-magna/providers-m
     MyApp,
     AboutPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    CreatePointPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     NativeStorage,
+    Toast,
+    SQLite,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ProvidersStorageProvider,
-    ProvidersMagnaProvider
+    MagnaProvider,
+    DbmanagerProvider,
+    Geolocation
   ]
 })
 export class AppModule {}

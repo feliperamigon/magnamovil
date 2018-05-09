@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { DbmanagerProvider } from '../../providers/dbmanager/dbmanager';
+import { CreatePointPage } from '../create-point/create-point';
 
 @Component({
   selector: 'page-home',
@@ -7,8 +9,15 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  // Variables
+  points: any = [];
 
+  constructor(public navCtrl: NavController, public _db: DbmanagerProvider) {
+
+  }
+
+  createPoint() {
+    this.navCtrl.push(CreatePointPage);
   }
 
 }
