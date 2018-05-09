@@ -7,7 +7,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { NativeStorage} from "@ionic-native/native-storage";
 import { SQLite } from '@ionic-native/sqlite';
 import { Toast } from '@ionic-native/toast';
-import { Geolocation,  } from '@ionic-native/geolocation';
+import { Geolocation } from '@ionic-native/geolocation';
 
 // Custom pages components
 import { MyApp } from './app.component';
