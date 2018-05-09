@@ -24,7 +24,7 @@ export class DbmanagerProvider {
       db.executeSql('CREATE TABLE IF NOT EXISTS point(id INTEGER PRIMARY KEY, date TEXT, name TEXT, type TEXT, description TEXT)', {})
         .then(res => this.presentToast('Base de datos creada', 1000))
         .catch(e => this.presentToast('Error al crear la base de datos: ' + e, 5000 ));
-    }).catch(e => console.error(e));
+    }).catch(e => this.presentToast('Error al crear la base de datos: ' + e, 5000 ));
 
   }
 
