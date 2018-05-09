@@ -12,7 +12,7 @@ export class HomePage {
   // Variables
   points: any = [];
 
-  constructor(public navCtrl: NavController, public _db: DbmanagerProvider) {
+  constructor(public navCtrl: NavController) {
 
   }
 

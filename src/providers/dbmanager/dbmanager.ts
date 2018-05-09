@@ -11,9 +11,7 @@ import { ToastController } from 'ionic-angular/components/toast/toast-controller
 @Injectable()
 export class DbmanagerProvider {
 
-  constructor(private sqlite: SQLite, public toastCtrl: ToastController) {
-    this.createDatabase();
-  }
+  constructor(private sqlite: SQLite, public toastCtrl: ToastController) { }
 
   createDatabase() {
     
