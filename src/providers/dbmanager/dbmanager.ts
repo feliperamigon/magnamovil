@@ -1,63 +1,54 @@
-import {Injectable} from '@angular/core';
-import {SQLite, SQLiteObject} from '@ionic-native/sqlite';
-import {Point} from "../../models/point.model";
-import {ToastController} from "ionic-angular";
+import { Toast } from '@ionic-native/toast';
+import { Injectable } from '@angular/core';
+import { SQLiteObject } from '@ionic-native/sqlite';
+import { ToastController } from 'ionic-angular';
 
 
 @Injectable()
 export class DbmanagerProvider {
 
-  constructor(private sqlite: SQLite, private _tc: ToastController) {
+  db: SQLiteObject = null;
+
+  constructor(private _tc: ToastController, private toast: Toast) {
   }
 
-  getAllPoints() {
-
-    return new Promise<any>((resolve, reject) => {
-      this.sqlite.create({
-        name: 'magnadb.db',  // Database name
-        location: 'default', // Path where database is gonna be
-      }).then((db: SQLiteObject) => {
-        db.executeSql('SELECT * from point', {})
-          .then(res => {
-            console.log(res);
-            resolve(res);
-          })
-      }).catch(err => {
-        reject();
-      });
-    });
-
+  setDatabase(db: SQLiteObject) {
+    if (this.db === null) {
+      this.db = db;
+    }
   }
 
-  createPoint(point: Point): Promise<boolean> {
-
-    return new Promise<boolean>((resolve, reject) => {
-      this.sqlite.create({
-        name: 'magnadb.db',  // Database name
-        location: 'default', // Path where database is gonna be
-      }).then((db: SQLiteObject) => {
-        db.executeSql('INSERT INTO point VALUES(?, ?, ?, NULL, ?)', [point.name, point.description, point.date, point.type])
-          .then(res => {
-            console.log(res);
-            this.presentToast(res.toString(), 3000);
-            resolve(true);
-          });
-      }).catch(err => {
-        console.log(err);
-        this.presentToast(err, 3000);
-        reject();
-      });
-    });
-
+  createPointTable() {
+    let sql = 'CREATE TABLE IF NOT EXISTS points(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, date TEXT)';
+    return this.db.executeSql(sql, []);
   }
 
-  presentToast(message: string, duration: number) {
-    let toast = this._tc.create({
-      message: message,
-      duration: duration,
-      position: 'bottom'
-    });
-    toast.present();
+  createPoint(point: any){
+    let sql = 'INSERT INTO points(name, description, date) VALUES(?,?,?)';
+    return this.db.executeSql(sql, [point.name, point.description, point.date]);
+  }
+
+  updatePoint(point: any){
+    let sql = 'UPDATE points SET name=?, description=?, date=? WHERE id=?';
+    return this.db.executeSql(sql, [point.name, point.description, point.date, point.id]);
+  }
+
+  deletePoint(point: any){
+    let sql = 'DELETE FROM points WHERE id=?';
+    return this.db.executeSql(sql, [point.id]);
+  }
+
+  getAllPoints(){
+    let sql = 'SELECT * FROM points';
+    return this.db.executeSql(sql, [])
+    .then(response => {
+      let points = [];
+      for (let index = 0; index < response.rows.length; index++) {
+        points.push( response.rows.item(index) );
+      }
+      return Promise.resolve( points );
+    })
+    .catch(error => Promise.reject(error));
   }
 
 }

@@ -1,7 +1,7 @@
 // Ionic Core Modules
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler, NavController } from 'ionic-angular';
 
 // ThirdParty libraries ( Cordova, Database, etc)
 import { NativeStorage} from "@ionic-native/native-storage";
@@ -15,6 +15,8 @@ import { AboutPage } from '../pages/about/about';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { CreatePointPage } from '../pages/create-point/create-point';
+import { EditPointPage } from './../pages/edit-point/edit-point';
+import { PointPage } from '../pages/point/point';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -25,13 +27,16 @@ import { DbmanagerProvider } from './../providers/dbmanager/dbmanager';
 import { UtilsProvider } from '../providers/utils/utils';
 
 
+
 @NgModule({
   declarations: [
     MyApp,
     AboutPage,
     HomePage,
     TabsPage,
-    CreatePointPage
+    PointPage,
+    CreatePointPage,
+    EditPointPage
   ],
   imports: [
     BrowserModule,
@@ -43,7 +48,9 @@ import { UtilsProvider } from '../providers/utils/utils';
     AboutPage,
     HomePage,
     TabsPage,
-    CreatePointPage
+    PointPage,
+    CreatePointPage,
+    EditPointPage
   ],
   providers: [
     StatusBar,
@@ -51,11 +58,11 @@ import { UtilsProvider } from '../providers/utils/utils';
     NativeStorage,
     Toast,
     SQLite,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
     MagnaProvider,
     DbmanagerProvider,
     Geolocation,
-    UtilsProvider
+    UtilsProvider,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
 export class AppModule {}

@@ -5,32 +5,39 @@
 </ion-header>
 
 <ion-content padding>
+
+  <ion-refresher (ionRefresh)="refreshData($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <h5 class="home-title">Puntos recientes</h5>
 
-  <ion-list>
-    <ion-item-sliding>
-      <ion-item>
-        <ion-avatar item-start>
-          <ion-icon class="point-icon" color="secondary" name="md-locate"></ion-icon>
-        </ion-avatar>
-        <h2 class="point-name">Punto X</h2>
-        <h3 class="point-date">Última actualización el 08/05/2018</h3>
-      </ion-item>
-      <ion-item-options side="right">
-        <button ion-button color="secondary">
-          <ion-icon name="md-brush"></ion-icon>
-          Editar
-        </button>
-        <button ion-button color="danger">
-          <ion-icon name="md-trash"></ion-icon>
-          Eliminar
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
+  <h6 class="empty" *ngIf="points.length <= 0">No tienes ningún punto creado</h6>
 
+  <div class="points-list mat-elevation-z2">
 
-
+    <ion-list>
+      <ion-item-sliding *ngFor="let point of points; let i = index;" (click)="goToPoint(point, i)">
+        <ion-item class="point-item">
+          <ion-avatar item-start>
+            <ion-icon class="point-icon" color="secondary" name="md-locate"></ion-icon>
+          </ion-avatar>
+          <h2 class="point-name">{{point?.name}}</h2>
+          <h3 class="point-date">Última actualización el {{point?.date}}</h3>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="secondary" (click)="updatePoint(point, i);">
+            <ion-icon name="md-brush"></ion-icon>
+            Editar
+          </button>
+          <button ion-button color="danger" (click)="deletePoint(point, i);">
+            <ion-icon name="md-trash"></ion-icon>
+            Eliminar
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
 
   <!--Create new Project-->
   <ion-fab right bottom>
