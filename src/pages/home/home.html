@@ -17,6 +17,15 @@
   <div class="points-list mat-elevation-z2">
 
     <ion-list>
+
+      <ion-item *ngIf="isWeb"  class="point-item" (click)="goToPoint()">
+        <ion-avatar item-start>
+          <ion-icon class="point-icon" color="secondary" name="md-locate"></ion-icon>
+        </ion-avatar>
+        <h2 class="point-name">Punto X</h2>
+        <h3 class="point-date">Última actualización el KAJSDAJSD</h3>
+      </ion-item>
+
       <ion-item-sliding *ngFor="let point of points; let i = index;" (click)="goToPoint(point, i)">
         <ion-item class="point-item">
           <ion-avatar item-start>

@@ -20,9 +20,186 @@
       Obtener con mi ubicación actual
     </button>
 
-    <button class="create-point-buttons" ion-button outline block color="secondary">
+    <button class="create-point-buttons" ion-button outline block color="secondary" (click)="custom = true; created = false;">
       Crear un nuevo punto
     </button>
+  </div>
+
+  <div *ngIf="custom && !created" class="custom-created">
+    <h4 class="custom-title">Creación de punto manual</h4>
+    <ion-item class="coord-type">
+      <ion-label>Tipo de coordenada</ion-label>
+      <ion-select [(ngModel)]="type">
+        <ion-option value="gms">Elipsoidales GMS</ion-option>
+        <ion-option value="latlng">Elipsoidales Decimal</ion-option>
+        <ion-option value="gauss">Gauss Krugger</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <div *ngIf="type !== '' && type === 'gms'" id="gms-section" class="coord-form mat-elevation-z2">
+      <h5 class="coord-title">Entrada Coordenadas Elipsoidales (Grados, Minutos, Segundos)</h5>
+      <div class="single-coord">
+        <span class="single-coord-title">Latitud:</span>
+
+        <!-- Inputs -->
+        <ion-list style="display: flex;">
+
+          <ion-item class="coord-item">
+            <ion-input type="number" placeholder="G"></ion-input>
+          </ion-item>
+
+          <ion-item class="coord-item">
+            <ion-input type="number" placeholder="M"></ion-input>
+          </ion-item>
+
+          <ion-item class="coord-item">
+            <ion-input type="number" placeholder="S"></ion-input>
+          </ion-item>
+
+        </ion-list>
+
+      </div>
+
+      <ion-item class="hemisphire">
+        <ion-label>Hemisferio</ion-label>
+        <ion-select [(ngModel)]="latHemisphire">
+          <ion-option value="N">Norte (N)</ion-option>
+          <ion-option value="S">Sur (S)</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <hr>
+
+      <div class="single-coord">
+        <span class="single-coord-title">Longitud:</span>
+
+        <!-- Inputs -->
+        <ion-list style="display: flex;">
+
+          <ion-item class="coord-item">
+            <ion-input type="number" placeholder="G"></ion-input>
+          </ion-item>
+
+          <ion-item class="coord-item">
+            <ion-input type="number" placeholder="M"></ion-input>
+          </ion-item>
+
+          <ion-item class="coord-item">
+            <ion-input type="number" placeholder="S"></ion-input>
+          </ion-item>
+
+        </ion-list>
+
+      </div>
+
+      <ion-item class="hemisphire">
+        <ion-label>Hemisferio</ion-label>
+        <ion-select [(ngModel)]="lngHemisphire">
+          <ion-option value="N">Este (E)</ion-option>
+          <ion-option value="W">Oeste (W)</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <button ion-button outline block color="primary" (click)="showCreatePrompt()">Crear</button>
+
+    </div>
+
+    <div *ngIf="type !== '' && type === 'latlng'" id="latlng-section" class="coord-form mat-elevation-z2">
+      <h5 class="coord-title">Entrada Coordenadas Elipsoidales Decimal</h5>
+
+      <div class="single-coord">
+          <span class="single-coord-title">Latitud:</span>
+  
+          <!-- Inputs -->
+          <ion-list style="display: flex;">
+  
+            <ion-item class="coord-item">
+              <ion-input type="number" placeholder="e.g 4.59533859"></ion-input>
+            </ion-item>
+  
+          </ion-list>
+  
+        </div>
+  
+        <ion-item class="hemisphire">
+          <ion-label>Hemisferio</ion-label>
+          <ion-select [(ngModel)]="latHemisphire">
+            <ion-option value="N">Norte (N)</ion-option>
+            <ion-option value="S">Sur (S)</ion-option>
+          </ion-select>
+        </ion-item>
+  
+        <hr>
+  
+        <div class="single-coord">
+          <span class="single-coord-title">Longitud:</span>
+  
+          <!-- Inputs -->
+          <ion-list style="display: flex;">
+  
+            <ion-item class="coord-item">
+              <ion-input type="number" placeholder="e.g 72.3377278 "></ion-input>
+            </ion-item>
+          </ion-list>
+  
+        </div>
+  
+        <ion-item class="hemisphire">
+          <ion-label>Hemisferio</ion-label>
+          <ion-select [(ngModel)]="lngHemisphire">
+            <ion-option value="N">Este (E)</ion-option>
+            <ion-option value="W">Oeste (W)</ion-option>
+          </ion-select>
+        </ion-item>
+  
+        <button ion-button outline block color="primary" (click)="showCreatePrompt()">Crear</button>
+
+    </div>
+
+    <div *ngIf="type !== '' && type === 'gauss'" id="gauss-section" class="coord-form mat-elevation-z2">
+      <h5 class="coord-title">Entrada Coordenadas Gauss Krugger</h5>
+
+      <div class="single-coord">
+          <span class="single-coord-title">Norte:</span>
+  
+          <!-- Inputs -->
+          <ion-list style="display: flex;">
+  
+            <ion-item class="coord-item">
+              <ion-input type="number" placeholder="e.g 1000027.968"></ion-input>
+            </ion-item>
+  
+          </ion-list>
+  
+        </div>
+  
+        <div class="single-coord">
+          <span class="single-coord-title">Este:</span>
+  
+          <!-- Inputs -->
+          <ion-list style="display: flex;">
+  
+            <ion-item class="coord-item">
+              <ion-input type="number" placeholder="e.g 860149.772 "></ion-input>
+            </ion-item>
+          </ion-list>
+  
+        </div>
+  
+        <ion-item class="hemisphire">
+          <ion-label>Origen</ion-label>
+          <ion-select [(ngModel)]="gaussOrigin">
+            <ion-option value="E">Este</ion-option>
+            <ion-option value="N">Norte</ion-option>
+            <ion-option value="S">Sur</ion-option>
+            <ion-option value="O">Oriente</ion-option>
+          </ion-select>
+        </ion-item>
+  
+        <button ion-button outline block color="primary" (click)="showCreatePrompt()">Crear</button>
+
+    </div>
+
   </div>
 
   <div class="create-results mat-elevation-z2" *ngIf="created">

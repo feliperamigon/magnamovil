@@ -66,7 +66,7 @@ export class HomePage {
     editModal.present();
   }
 
-  goToPoint(point, index) {
+  goToPoint(point?, index?) {
     this.navCtrl.push(PointPage);
   }
 

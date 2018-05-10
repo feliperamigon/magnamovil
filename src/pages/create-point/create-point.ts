@@ -23,7 +23,12 @@ export class CreatePointPage {
     description: '',
     date: ''
   };
+  type: string = '';
+  latHemisphire: string = '';
+  lngHemisphire: string = '';
+  gaussOrigin: string = '';
 
+  custom: boolean = false;
   created: boolean = false;
 
   constructor(public navCtrl: NavController,

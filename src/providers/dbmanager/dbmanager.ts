@@ -1,7 +1,5 @@
-import { Toast } from '@ionic-native/toast';
 import { Injectable } from '@angular/core';
 import { SQLiteObject } from '@ionic-native/sqlite';
-import { ToastController } from 'ionic-angular';
 
 
 @Injectable()
@@ -9,7 +7,7 @@ export class DbmanagerProvider {
 
   db: SQLiteObject = null;
 
-  constructor(private _tc: ToastController, private toast: Toast) {
+  constructor() {
   }
 
   setDatabase(db: SQLiteObject) {

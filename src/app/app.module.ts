@@ -1,7 +1,7 @@
 // Ionic Core Modules
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler, NavController } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
 // ThirdParty libraries ( Cordova, Database, etc)
 import { NativeStorage} from "@ionic-native/native-storage";
