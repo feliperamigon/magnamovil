@@ -39,7 +39,10 @@ export class DbmanagerProvider {
           .then(res => {
             console.log(res);
             resolve(true);
-          })
+          }).catch(err => {
+            console.log('peguelo fallo');
+            reject();
+          });
       }).catch(err => {
         console.log(err);
         reject();

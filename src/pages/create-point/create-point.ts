@@ -116,7 +116,7 @@ export class CreatePointPage {
                 this.navCtrl.popToRoot();
               })
               .catch(err => {
-
+                this._utils.presentToast('Creacion de punto falló: ' + err, 3000);
               });
           }
         }
