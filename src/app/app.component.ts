@@ -23,15 +23,15 @@ export class MyApp {
   }
 
   createDatabase() {
-    
+
     this.sqlite.create({
       name: 'magnadb.db',  // Database name
       location: 'default', // Path where database is gonna be
     }).then((db: SQLiteObject) => { // If database is created succesfully, returns a promise
       db.executeSql('CREATE TABLE IF NOT EXISTS point(id INTEGER PRIMARY KEY, date TEXT, name TEXT, type TEXT, description TEXT)', {})
-        .then(res => this.presentToast('Base de datos creada', 1000))
-        .catch(e => this.presentToast('Error al crear la base de datos: ' + e, 5000 ));
-    }).catch(e => this.presentToast('Error al crear la base de datos: ' + e, 5000 ));
+        .then(res => this.presentToast('Base de datos creada', 3000))
+        .catch(e => this.presentToast('Error al crear la base de datos: ' + e, 3000 ));
+    }).catch(e => this.presentToast('Error al crear la base de datos: ' + e, 3000 ));
 
   }
 

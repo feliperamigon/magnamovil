@@ -22,6 +22,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 // Custom Providers
 import { MagnaProvider } from '../providers/magna/magna';
 import { DbmanagerProvider } from './../providers/dbmanager/dbmanager';
+import { UtilsProvider } from '../providers/utils/utils';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { DbmanagerProvider } from './../providers/dbmanager/dbmanager';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     MagnaProvider,
     DbmanagerProvider,
-    Geolocation
+    Geolocation,
+    UtilsProvider
   ]
 })
 export class AppModule {}

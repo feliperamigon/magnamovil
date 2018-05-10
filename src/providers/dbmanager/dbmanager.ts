@@ -1,42 +1,52 @@
-import { Injectable } from '@angular/core';
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
-import { ToastController } from 'ionic-angular/components/toast/toast-controller';
+import {Injectable} from '@angular/core';
+import {SQLite, SQLiteObject} from '@ionic-native/sqlite';
+import {Point} from "../../models/point.model";
 
-/*
-  Generated class for the DbmanagerProvider provider.
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class DbmanagerProvider {
 
-  constructor(private sqlite: SQLite, public toastCtrl: ToastController) { }
-
-  createDatabase() {
-    
-    this.sqlite.create({
-      name: 'magnadb.db',  // Database name
-      location: 'default', // Path where database is gonna be
-    }).then((db: SQLiteObject) => { // If database is created succesfully, returns a promise
-      db.executeSql('CREATE TABLE IF NOT EXISTS point(id INTEGER PRIMARY KEY, date TEXT, name TEXT, type TEXT, description TEXT)', {})
-        .then(res => this.presentToast('Base de datos creada', 1000))
-        .catch(e => this.presentToast('Error al crear la base de datos: ' + e, 5000 ));
-    }).catch(e => this.presentToast('Error al crear la base de datos: ' + e, 5000 ));
-
+  constructor(private sqlite: SQLite) {
   }
 
   getAllPoints() {
 
+    return new Promise<any>((resolve, reject) => {
+      this.sqlite.create({
+        name: 'magnadb.db',  // Database name
+        location: 'default', // Path where database is gonna be
+      }).then((db: SQLiteObject) => {
+        db.executeSql('SELECT * from point', {})
+          .then(res => {
+            console.log(res);
+            resolve(res);
+          })
+      }).catch(err => {
+        reject();
+      });
+    });
+
   }
 
-  presentToast(message: string, duration: number) {
-    let toast = this.toastCtrl.create({
-      message: message,
-      duration: duration,
-      position: 'bottom'
+  createPoint(point: Point): Promise<boolean> {
+
+    return new Promise<boolean>((resolve, reject) => {
+      this.sqlite.create({
+        name: 'magnadb.db',  // Database name
+        location: 'default', // Path where database is gonna be
+      }).then((db: SQLiteObject) => {
+        db.executeSql('INSERT INTO point VALUES(?, ?, ?, NULL, ?)', [point.name, point.description, point.date, point.type])
+          .then(res => {
+            console.log(res);
+            resolve(true);
+          })
+      }).catch(err => {
+        console.log(err);
+        reject();
+      });
     });
-    toast.present();
+
   }
+
 
 }
