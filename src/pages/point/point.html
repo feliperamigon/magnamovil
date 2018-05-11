@@ -1,4 +1,5 @@
-<!--
+s
+l<!--
   Generated template for the PointPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
@@ -7,7 +8,7 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>Nombre del punto</ion-title>
+    <ion-title>Punto: {{point?.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,5 +16,28 @@
 
 <ion-content padding>
   
+
+  <ion-card>
+  
+    <ion-item>
+      <ion-icon name="paper" item-start large></ion-icon>
+      <h2>{{point?.name}}</h2>
+      <p>{{point?.description}}</p>
+      <p>Lat: {{point?.lat}}</p>
+      <p>Long: {{point?.long}}</p>
+    </ion-item>
+  
+    <ion-item>
+      <span *ngIf="point?.type === 'latlng'"  item-left>Elipsoidales Decimal</span>
+      <span *ngIf="point?.type === 'gms'" item-left>Elipsoidales GMS</span>
+      <span *ngIf="point?.type === 'gauss'" item-left>Gauss Krugger</span>
+      <button ion-button icon-left clear item-end>
+        <ion-icon name="md-calculator"></ion-icon>
+        Transformaciones
+      </button>
+    </ion-item>
+  
+  </ion-card>
+
 
 </ion-content>

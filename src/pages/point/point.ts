@@ -1,25 +1,26 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
+import { UtilsProvider } from '../../providers/utils/utils';
 
-/**
- * Generated class for the PointPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
-@IonicPage()
 @Component({
   selector: 'page-point',
   templateUrl: 'point.html',
 })
 export class PointPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  point: any;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private _utils: UtilsProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PointPage');
+    this.getCurrentPoint();
+  }
+
+  getCurrentPoint() {
+    this.point = this.navParams.get('point');
+    this._utils.presentToast('Punto recibido: ' + this.point, 5000);
   }
 
 }

@@ -2,10 +2,7 @@ import { Injectable } from '@angular/core';
 import { LoadingController, ToastController } from 'ionic-angular';
 
 /*
-  Generated class for the UtilsProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
+ Servicio para la creacion de loaders, o mensajes por pantalla (Toast)
 */
 @Injectable()
 export class UtilsProvider {

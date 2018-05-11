@@ -26,10 +26,14 @@ import { MagnaProvider } from '../providers/magna/magna';
 import { DbmanagerProvider } from './../providers/dbmanager/dbmanager';
 import { UtilsProvider } from '../providers/utils/utils';
 
+/*
+En este archivo se declaran todos los modulos a usar durante el tiempo de ejecucion de la aplicación,
+Es el modulo principal de ionic.
 
+*/
 
 @NgModule({
-  declarations: [
+  declarations: [ // Aqui se listan los componentes que se han creados y se declaran para poder ser utilizados en todo el proyecto
     MyApp,
     AboutPage,
     HomePage,
@@ -39,11 +43,11 @@ import { UtilsProvider } from '../providers/utils/utils';
     EditPointPage
   ],
   imports: [
-    BrowserModule,
+    BrowserModule, // Todos los modulos que son de librerias externas se declaran aca
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
+  entryComponents: [ // Aqui se listan los componentes que se han creados y se declaran para poder ser utilizados en todo el proyecto
     MyApp,
     AboutPage,
     HomePage,
@@ -52,7 +56,7 @@ import { UtilsProvider } from '../providers/utils/utils';
     CreatePointPage,
     EditPointPage
   ],
-  providers: [
+  providers: [ // Aqui se listan todos los servicios que pueden ser inyectados como dependencias en todos los componentes
     StatusBar,
     SplashScreen,
     NativeStorage,
