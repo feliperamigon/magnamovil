@@ -18,15 +18,7 @@
 
     <ion-list>
 
-      <ion-item *ngIf="!isWeb"  class="point-item" (click)="goToPoint()">
-        <ion-avatar item-start>
-          <ion-icon class="point-icon" color="secondary" name="md-locate"></ion-icon>
-        </ion-avatar>
-        <h2 class="point-name">Punto X</h2>
-        <h3 class="point-date">Última actualización el KAJSDAJSD</h3>
-      </ion-item>
-
-      <ion-item-sliding *ngFor="let point of points; let i = index;" (click)="goToPoint(point, i)">
+      <ion-item-sliding *ngFor="let point of points; let i = index;">
         <ion-item class="point-item">
           <ion-avatar item-start>
             <ion-icon class="point-icon" color="secondary" name="md-locate"></ion-icon>
@@ -39,11 +31,19 @@
             <ion-icon name="md-brush"></ion-icon>
             Editar
           </button>
+          <button ion-button color="primary" (click)="goToPoint(point, i)">
+            <ion-icon name="arrow-dropright"></ion-icon>
+            Ver
+          </button>
+        </ion-item-options>
+
+        <ion-item-options side="left">
           <button ion-button color="danger" (click)="deletePoint(point, i);">
             <ion-icon name="md-trash"></ion-icon>
             Eliminar
           </button>
         </ion-item-options>
+
       </ion-item-sliding>
     </ion-list>
   </div>
@@ -52,6 +52,12 @@
   <ion-fab right bottom>
     <button ion-fab mini color="secondary" (click)="createPoint()">
       <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <ion-fab left bottom>
+    <button ion-fab mini color="secondary" (click)="deleteDatabase()">
+      <ion-icon name="trash"></ion-icon>
     </button>
   </ion-fab>
 

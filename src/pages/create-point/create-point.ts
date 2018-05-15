@@ -26,7 +26,18 @@ export class CreatePointPage {
     date: '',
     lat: 0,
     long: 0,
-    type: ''
+    type: '',
+    latDegrees: '',
+    latMinutes: '',
+    latSeconds: '',
+    lngDegrees: '',
+    lngMinutes: '',
+    lngSeconds: '',
+    lngHemisphire: '',
+    latHemisphire: '',
+    north: '',
+    east: '',
+    origin: ''
   };
   type: string = ''; // tipo del punto
   latHemisphire: string = ''; // Hemisferios para Elipsodiales GMS
@@ -99,7 +110,7 @@ export class CreatePointPage {
   showCreatePrompt() {
 
     let prompt = this.alertCtrl.create({
-      title: 'Crear punto',
+      title: 'Crear punto desde GPS',
       message: 'Ingresa un nombre para este nuevo punto',
       inputs: [
         {
@@ -126,6 +137,139 @@ export class CreatePointPage {
             this.newPoint.lat = this.gpsLat;
             this.newPoint.long = this.gpsLong;
             this.newPoint.type = 'latlng';
+            this._db.createPoint(this.newPoint) // Llamado al manager de la base de datos, se le pasa el nuevo punto y este lo crea
+              .then(response => { // Evento que se dispara si el punto se crea satisfactoriamente
+                this._utils.presentToast('Punto creado correctamente: ' + JSON.stringify(response), 5000);
+                this.created = false;
+              })
+              .catch(error => { // Evento que se dispara si falla la creación
+                this._utils.presentToast('Error al crear el punto: ' + JSON.stringify(error), 5000);
+              });
+          }
+        }
+      ]
+    });
+    prompt.present(); // Funcion que muestra el modal
+
+  }
+
+
+  showCreateLatLng() {
+
+    let prompt = this.alertCtrl.create({
+      title: 'Crear Elipsoidal Decimal',
+      message: 'Ingresa un nombre para este nuevo punto',
+      inputs: [
+        {
+          name: 'name',
+          placeholder: 'Nombre'
+        },
+        {
+          name: 'description',
+          placeholder: 'Descripción del punto'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Guardar',
+          handler: (data: any) => { // Funcion que dispara el boton guardar
+            let today = new Date();
+            this.newPoint.name = data.name; // Asignación de atributos al nuevo punto
+            this.newPoint.description = data.description;
+            this.newPoint.date = today.toLocaleDateString('es-CO');
+            this.newPoint.type = this.type;
+            this._db.createPoint(this.newPoint) // Llamado al manager de la base de datos, se le pasa el nuevo punto y este lo crea
+              .then(response => { // Evento que se dispara si el punto se crea satisfactoriamente
+                this._utils.presentToast('Punto creado correctamente: ' + JSON.stringify(response), 5000);
+                this.created = false;
+              })
+              .catch(error => { // Evento que se dispara si falla la creación
+                this._utils.presentToast('Error al crear el punto: ' + JSON.stringify(error), 5000);
+              });
+          }
+        }
+      ]
+    });
+    prompt.present(); // Funcion que muestra el modal
+
+  }
+
+  showCreateGMS() {
+
+    let prompt = this.alertCtrl.create({
+      title: 'Crear punto en GMS',
+      message: 'Ingresa un nombre para este nuevo punto',
+      inputs: [
+        {
+          name: 'name',
+          placeholder: 'Nombre'
+        },
+        {
+          name: 'description',
+          placeholder: 'Descripción del punto'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Guardar',
+          handler: (data: any) => { // Funcion que dispara el boton guardar
+            let today = new Date();
+            this.newPoint.name = data.name; // Asignación de atributos al nuevo punto
+            this.newPoint.description = data.description;
+            this.newPoint.date = today.toLocaleDateString('es-CO');
+            this.newPoint.type = this.type;
+            this._db.createPoint(this.newPoint) // Llamado al manager de la base de datos, se le pasa el nuevo punto y este lo crea
+              .then(response => { // Evento que se dispara si el punto se crea satisfactoriamente
+                this._utils.presentToast('Punto creado correctamente: ' + JSON.stringify(response), 5000);
+                this.created = false;
+              })
+              .catch(error => { // Evento que se dispara si falla la creación
+                this._utils.presentToast('Error al crear el punto: ' + JSON.stringify(error), 5000);
+              });
+          }
+        }
+      ]
+    });
+    prompt.present(); // Funcion que muestra el modal
+
+  }
+
+  showCreateGauss() {
+
+    let prompt = this.alertCtrl.create({
+      title: 'Crear punto con Gauss Krugger',
+      message: 'Ingresa un nombre para este nuevo punto',
+      inputs: [
+        {
+          name: 'name',
+          placeholder: 'Nombre'
+        },
+        {
+          name: 'description',
+          placeholder: 'Descripción del punto'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Guardar',
+          handler: (data: any) => { // Funcion que dispara el boton guardar
+            let today = new Date();
+            this.newPoint.name = data.name; // Asignación de atributos al nuevo punto
+            this.newPoint.description = data.description;
+            this.newPoint.date = today.toLocaleDateString('es-CO');
+            this.newPoint.type = this.type;
             this._db.createPoint(this.newPoint) // Llamado al manager de la base de datos, se le pasa el nuevo punto y este lo crea
               .then(response => { // Evento que se dispara si el punto se crea satisfactoriamente
                 this._utils.presentToast('Punto creado correctamente: ' + JSON.stringify(response), 5000);

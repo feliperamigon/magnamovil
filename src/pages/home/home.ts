@@ -71,7 +71,11 @@ export class HomePage {
   }
 
   goToPoint(point?, index?) { // Ir a la página del punto (Detalles del punto)
-    this.navCtrl.push(PointPage, { point });
+    this.navCtrl.push(PointPage, { point }).catch( error => this._utils.presentToast('Error: ' + error, 10000 ));
+  }
+
+  deleteDatabase() {
+    this._db.deleteDatabase();
   }
 
 }

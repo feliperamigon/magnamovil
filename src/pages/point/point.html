@@ -1,5 +1,5 @@
-s
-l<!--
+s l
+<!--
   Generated template for the PointPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
@@ -15,20 +15,47 @@ l<!--
 
 
 <ion-content padding>
-  
+
 
   <ion-card>
-  
+
     <ion-item>
       <ion-icon name="paper" item-start large></ion-icon>
       <h2>{{point?.name}}</h2>
       <p>{{point?.description}}</p>
-      <p>Lat: {{point?.lat}}</p>
-      <p>Long: {{point?.long}}</p>
+      <p *ngIf="point?.type === 'latlng'">Elipsoidales Decimales</p>
+      <p *ngIf="point?.type === 'gms'">Elipsoidales Decimales (Grados, Minutos, Segundos)</p>
+      <p *ngIf="point?.type === 'gauss'">Gauss Krugger</p>
+
+      <!-- Type === LatLng -->
+      <div *ngIf="point?.type === 'latlng'" class="coord-type-section">
+        <p>Latitud: {{point?.lat}} - ({{point?.latHemisphire}})</p>
+        <p>Longitud: {{point?.long}} - ({{point?.lngHemisphire}})</p>
+      </div>
+      <!-- Type === LatLng -->
+
+      <!-- Type === gms -->
+      <div *ngIf="point?.type === 'gms'" class="coord-type-section">
+        <p>Latitud: {{point?.latDegrees}}° {{point?.latMinutes}}' {{point?.latSeconds}}'' - ({{point?.latHemisphire}})</p>
+        <p>Longitud: {{point?.lngDegrees}}° {{point?.lngMinutes}}' {{point?.lngSeconds}}'' - ({{point?.lngHemisphire}})</p>
+      </div>
+      <!-- Type === gms -->
+
+      <!-- Type === gauss -->
+      <div *ngIf="point?.type === 'gauss'" class="coord-type-section">
+        <p>Norte: {{point?.north}}</p>
+        <p>Este: {{point?.east}}</p>
+        <p *ngIf="point?.origin === 'E'">Origen: Este (E)</p>
+        <p *ngIf="point?.origin === 'N'">Origen: Norte (N)</p>
+        <p *ngIf="point?.origin === 'S'">Origen: Sur (S)</p>
+        <p *ngIf="point?.origin === 'O'">Origen: Oeste (O)</p>
+      </div>
+      <!-- Type === gauss -->
+
     </ion-item>
-  
+
     <ion-item>
-      <span *ngIf="point?.type === 'latlng'"  item-left>Elipsoidales Decimal</span>
+      <span *ngIf="point?.type === 'latlng'" item-left>Elipsoidales Decimal</span>
       <span *ngIf="point?.type === 'gms'" item-left>Elipsoidales GMS</span>
       <span *ngIf="point?.type === 'gauss'" item-left>Gauss Krugger</span>
       <button ion-button icon-left clear item-end>
@@ -36,7 +63,7 @@ l<!--
         Transformaciones
       </button>
     </ion-item>
-  
+
   </ion-card>
 
 

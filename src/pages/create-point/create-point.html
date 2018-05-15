@@ -45,15 +45,15 @@
         <ion-list style="display: flex;">
 
           <ion-item class="coord-item">
-            <ion-input type="number" placeholder="G"></ion-input>
+            <ion-input [(ngModel)]="newPoint.latDegrees" type="number" placeholder="G"></ion-input>
           </ion-item>
 
           <ion-item class="coord-item">
-            <ion-input type="number" placeholder="M"></ion-input>
+            <ion-input [(ngModel)]="newPoint.latMinutes" type="number" placeholder="M"></ion-input>
           </ion-item>
 
           <ion-item class="coord-item">
-            <ion-input type="number" placeholder="S"></ion-input>
+            <ion-input [(ngModel)]="newPoint.latSeconds" type="number" placeholder="S"></ion-input>
           </ion-item>
 
         </ion-list>
@@ -62,7 +62,7 @@
 
       <ion-item class="hemisphire">
         <ion-label>Hemisferio</ion-label>
-        <ion-select [(ngModel)]="latHemisphire">
+        <ion-select [(ngModel)]="newPoint.latHemisphire">
           <ion-option value="N">Norte (N)</ion-option>
           <ion-option value="S">Sur (S)</ion-option>
         </ion-select>
@@ -77,15 +77,15 @@
         <ion-list style="display: flex;">
 
           <ion-item class="coord-item">
-            <ion-input type="number" placeholder="G"></ion-input>
+            <ion-input  [(ngModel)]="newPoint.lngDegrees" type="number" placeholder="G"></ion-input>
           </ion-item>
 
           <ion-item class="coord-item">
-            <ion-input type="number" placeholder="M"></ion-input>
+            <ion-input  [(ngModel)]="newPoint.lngMinutes" type="number" placeholder="M"></ion-input>
           </ion-item>
 
           <ion-item class="coord-item">
-            <ion-input type="number" placeholder="S"></ion-input>
+            <ion-input  [(ngModel)]="newPoint.lngSeconds" type="number" placeholder="S"></ion-input>
           </ion-item>
 
         </ion-list>
@@ -94,13 +94,13 @@
 
       <ion-item class="hemisphire">
         <ion-label>Hemisferio</ion-label>
-        <ion-select [(ngModel)]="lngHemisphire">
+        <ion-select [(ngModel)]="newPoint.lngHemisphire">
           <ion-option value="N">Este (E)</ion-option>
           <ion-option value="W">Oeste (W)</ion-option>
         </ion-select>
       </ion-item>
 
-      <button ion-button outline block color="primary" (click)="showCreatePrompt()">Crear</button>
+      <button ion-button outline block color="primary" (click)="showCreateGMS()">Crear</button>
 
     </div>
 
@@ -114,7 +114,7 @@
           <ion-list style="display: flex;">
   
             <ion-item class="coord-item">
-              <ion-input type="number" placeholder="e.g 4.59533859"></ion-input>
+              <ion-input [(ngModel)]="newPoint.lat" type="number" placeholder="e.g 4.59533859"></ion-input>
             </ion-item>
   
           </ion-list>
@@ -123,7 +123,7 @@
   
         <ion-item class="hemisphire">
           <ion-label>Hemisferio</ion-label>
-          <ion-select [(ngModel)]="latHemisphire">
+          <ion-select [(ngModel)]="newPoint.latHemisphire">
             <ion-option value="N">Norte (N)</ion-option>
             <ion-option value="S">Sur (S)</ion-option>
           </ion-select>
@@ -138,7 +138,7 @@
           <ion-list style="display: flex;">
   
             <ion-item class="coord-item">
-              <ion-input type="number" placeholder="e.g 72.3377278 "></ion-input>
+              <ion-input [(ngModel)]="newPoint.long" type="number" placeholder="e.g 72.3377278 "></ion-input>
             </ion-item>
           </ion-list>
   
@@ -146,13 +146,13 @@
   
         <ion-item class="hemisphire">
           <ion-label>Hemisferio</ion-label>
-          <ion-select [(ngModel)]="lngHemisphire">
+          <ion-select [(ngModel)]="newPoint.lngHemisphire">
             <ion-option value="N">Este (E)</ion-option>
             <ion-option value="W">Oeste (W)</ion-option>
           </ion-select>
         </ion-item>
   
-        <button ion-button outline block color="primary" (click)="showCreatePrompt()">Crear</button>
+        <button ion-button outline block color="primary" (click)="showCreateLatLng()">Crear</button>
 
     </div>
 
@@ -166,7 +166,7 @@
           <ion-list style="display: flex;">
   
             <ion-item class="coord-item">
-              <ion-input type="number" placeholder="e.g 1000027.968"></ion-input>
+              <ion-input [(ngModel)]="newPoint.north" type="number" placeholder="e.g 1000027.968"></ion-input>
             </ion-item>
   
           </ion-list>
@@ -180,7 +180,7 @@
           <ion-list style="display: flex;">
   
             <ion-item class="coord-item">
-              <ion-input type="number" placeholder="e.g 860149.772 "></ion-input>
+              <ion-input [(ngModel)]="newPoint.east" type="number" placeholder="e.g 860149.772 "></ion-input>
             </ion-item>
           </ion-list>
   
@@ -188,7 +188,7 @@
   
         <ion-item class="hemisphire">
           <ion-label>Origen</ion-label>
-          <ion-select [(ngModel)]="gaussOrigin">
+          <ion-select [(ngModel)]="newPoint.origin">
             <ion-option value="E">Este</ion-option>
             <ion-option value="N">Norte</ion-option>
             <ion-option value="S">Sur</ion-option>
@@ -196,7 +196,7 @@
           </ion-select>
         </ion-item>
   
-        <button ion-button outline block color="primary" (click)="showCreatePrompt()">Crear</button>
+        <button ion-button outline block color="primary" (click)="showCreateGauss()">Crear</button>
 
     </div>
 
