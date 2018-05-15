@@ -136,6 +136,19 @@ export class CreatePointPage {
             this.newPoint.date = today.toLocaleDateString('es-CO');
             this.newPoint.lat = this.gpsLat;
             this.newPoint.long = this.gpsLong;
+            
+            if (this.newPoint.lat < 0) {
+              this.newPoint.latHemisphire = 'S';
+            } else {
+              this.newPoint.latHemisphire = 'N';
+            }
+
+            if (this.newPoint.long < 0) {
+              this.newPoint.lngHemisphire = 'W';
+            } else {
+              this.newPoint.lngHemisphire = 'E';
+            }
+
             this.newPoint.type = 'latlng';
             this._db.createPoint(this.newPoint) // Llamado al manager de la base de datos, se le pasa el nuevo punto y este lo crea
               .then(response => { // Evento que se dispara si el punto se crea satisfactoriamente

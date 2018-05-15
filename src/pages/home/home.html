@@ -18,6 +18,14 @@
 
     <ion-list>
 
+      <ion-item *ngIf="!isWeb"  class="point-item" (click)="goToPoint();">
+        <ion-avatar item-start>
+          <ion-icon class="point-icon" color="secondary" name="md-locate"></ion-icon>
+        </ion-avatar>
+        <h2 class="point-name">XXXXXXXXXX</h2>
+        <h3 class="point-date">Última actualización el XXXXXXXXXXXXXX</h3>
+      </ion-item>
+
       <ion-item-sliding *ngFor="let point of points; let i = index;">
         <ion-item class="point-item">
           <ion-avatar item-start>
