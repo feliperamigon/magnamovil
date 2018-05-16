@@ -58,7 +58,7 @@ s l
       <span *ngIf="point?.type === 'latlng'" item-left>Elipsoidales Decimal</span>
       <span *ngIf="point?.type === 'gms'" item-left>Elipsoidales GMS</span>
       <span *ngIf="point?.type === 'gauss'" item-left>Gauss Krugger</span>
-      <button ion-button icon-left clear item-end (click)="decimalTransformations(point.lat, point.long)">
+      <button ion-button icon-left clear item-end (click)="generateTransformations(point);">
         <ion-icon name="md-calculator"></ion-icon>
         Transformaciones
       </button>
@@ -76,10 +76,28 @@ s l
       
       <div *ngIf="point?.type === 'latlng'"  class="coord-transformations">
 
+        <h6 style="text-decoration: underline;">Elipsoidales Grados, Minutos y Segundos</h6>
+        <p><b>Latitud: </b>{{latDecimalToGms}}</p>
+        <p><b>Longitud: </b>{{longDecimalToGms }}</p>
+
         <h6 style="text-decoration: underline;">Gauss Krugger</h6>
         <p><b>Norte: </b>{{decimalToGauss?.norte}}</p>
         <p><b>Este: </b>{{decimalToGauss?.este}}</p>
         <p><b>Origen: </b>{{decimalToGauss?.origen}}</p>
+
+      </div>
+
+      <div *ngIf="point?.type === 'gms'"  class="coord-transformations">
+
+        <h6 style="text-decoration: underline;">Elipsoidal Decimal</h6>
+        <p><b>Latitud: </b>{{latGmsToDecimal?.decimal}}</p>
+        <p><b>Longitud: </b>{{longGmsToDecimal?.decimal}}</p>
+
+        <h6 style="text-decoration: underline;">Gauss Krugger</h6>
+        <p><b>Norte: </b>{{gmsToGauss?.norte}}</p>
+        <p><b>Este: </b>{{gmsToGauss?.este}}</p>
+        <p><b>Origen: </b>{{gmsToGauss?.origen}}</p>
+        
       </div>
 
     </ion-card-content>

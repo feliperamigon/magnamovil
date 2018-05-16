@@ -168,4 +168,63 @@ export class MagnaProvider {
 
   }
 
+  gmsToDecimal(grados, minutos, segundos, direccion) {
+
+    let signo;
+    let dec;
+
+    if (direccion) {
+      signo = (direccion.toLowerCase() == 'w' ||
+        direccion.toLowerCase() == 's') ?
+        -1 : 1;
+      direccion = (direccion.toLowerCase() == 'w' ||
+        direccion.toLowerCase() == 's' ||
+        direccion.toLowerCase() == 'n' ||
+        direccion.toLowerCase() == 'e') ?
+        direccion.toLowerCase() : '';
+    }
+    else {
+      signo = (grados < 0) ? -1 : 1;
+      direccion = '';
+    }
+
+    dec = Math.round((Math.abs(grados) + ((minutos * 60) + segundos) / 3600) * 1000000) / 1000000;
+
+    if (isNaN(direccion) || direccion == '') {
+      dec = dec * signo;
+    }
+
+    return {
+      'decimal': dec,
+      'valor': dec + "u00b0" + ((isNaN(direccion) || direccion == '') ? (' ' + direccion) : '')
+    }
+
+  }
+
+  decimalToGms(valor, tipo) {
+    var sign = 1, Abs=0;
+    var days, minutes, secounds, direction;
+
+    if(valor < 0)  { sign = -1; }
+    Abs = Math.abs( Math.round(valor * 1000000));
+    //Math.round is used to eliminate the small error caused by rounding in the computer:
+    //e.g. 0.2 is not the same as 0.20000000000284
+    //Error checks
+    if(tipo == "lat" && Abs > (90 * 1000000)){
+        //alert(" Degrees Latitude must be in the range of -90. to 90. ");
+        return false;
+    } else if(tipo == "lon" && Abs > (180 * 1000000)){
+        //alert(" Degrees Longitude must be in the range of -180 to 180. ");
+        return false;
+    }
+
+    days = Math.floor(Abs / 1000000);
+    minutes = Math.floor(((Abs/1000000) - days) * 60);
+    secounds = ( Math.floor((( ((Abs/1000000) - days) * 60) - minutes) * 100000) *60/100000 ).toFixed();
+    days = days * sign;
+    if(tipo == 'lat') direction = days<0 ? 'S' : 'N';
+    if(tipo == 'lon') direction = days<0 ? 'W' : 'E';
+    //else return value     
+    return (days * sign) + 'º ' + minutes + "' " + secounds + "'' " + direction;
+  }
 }
