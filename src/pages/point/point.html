@@ -45,10 +45,11 @@ s l
       <div *ngIf="point?.type === 'gauss'" class="coord-type-section">
         <p>Norte: {{point?.north}}</p>
         <p>Este: {{point?.east}}</p>
-        <p *ngIf="point?.origin === 'E'">Origen: Este (E)</p>
-        <p *ngIf="point?.origin === 'N'">Origen: Norte (N)</p>
-        <p *ngIf="point?.origin === 'S'">Origen: Sur (S)</p>
-        <p *ngIf="point?.origin === 'O'">Origen: Oeste (O)</p>
+        <p *ngIf="point?.origin === 'Insular'">Origen: Insular</p>
+        <p *ngIf="point?.origin === 'Central'">Origen: Central</p>
+        <p *ngIf="point?.origin === 'Oeste'">Origen: Oeste</p>
+        <p *ngIf="point?.origin === 'Este'">Origen: Este</p>
+        <p *ngIf="point?.origin === 'Este_Este'">Origen: Este_Este</p>
       </div>
       <!-- Type === gauss -->
 
@@ -97,6 +98,18 @@ s l
         <p><b>Norte: </b>{{gmsToGauss?.norte}}</p>
         <p><b>Este: </b>{{gmsToGauss?.este}}</p>
         <p><b>Origen: </b>{{gmsToGauss?.origen}}</p>
+        
+      </div>
+
+      <div *ngIf="point?.type === 'gauss'"  class="coord-transformations">
+
+        <h6 style="text-decoration: underline;">Elipsoidales Grados, Minutos y Segundos</h6>
+        <p><b>Latitud: </b>{{gaussToGMS.latitud_F}}</p>
+        <p><b>Longitud: </b>{{gaussToGMS.longitud_F}}</p>
+
+        <!-- <h6 style="text-decoration: underline;">Elipsoidal Decimal</h6>
+        <p><b>Latitud: </b>{{latGmsToDecimal?.decimal}}</p>
+        <p><b>Longitud: </b>{{longGmsToDecimal?.decimal}}</p>> -->
         
       </div>
 

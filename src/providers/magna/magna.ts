@@ -202,29 +202,177 @@ export class MagnaProvider {
   }
 
   decimalToGms(valor, tipo) {
-    var sign = 1, Abs=0;
+    var sign = 1, Abs = 0;
     var days, minutes, secounds, direction;
 
-    if(valor < 0)  { sign = -1; }
-    Abs = Math.abs( Math.round(valor * 1000000));
+    if (valor < 0) { sign = -1; }
+    Abs = Math.abs(Math.round(valor * 1000000));
     //Math.round is used to eliminate the small error caused by rounding in the computer:
     //e.g. 0.2 is not the same as 0.20000000000284
     //Error checks
-    if(tipo == "lat" && Abs > (90 * 1000000)){
-        //alert(" Degrees Latitude must be in the range of -90. to 90. ");
-        return false;
-    } else if(tipo == "lon" && Abs > (180 * 1000000)){
-        //alert(" Degrees Longitude must be in the range of -180 to 180. ");
-        return false;
+    if (tipo == "lat" && Abs > (90 * 1000000)) {
+      //alert(" Degrees Latitude must be in the range of -90. to 90. ");
+      return false;
+    } else if (tipo == "lon" && Abs > (180 * 1000000)) {
+      //alert(" Degrees Longitude must be in the range of -180 to 180. ");
+      return false;
     }
 
     days = Math.floor(Abs / 1000000);
-    minutes = Math.floor(((Abs/1000000) - days) * 60);
-    secounds = ( Math.floor((( ((Abs/1000000) - days) * 60) - minutes) * 100000) *60/100000 ).toFixed();
+    minutes = Math.floor(((Abs / 1000000) - days) * 60);
+    secounds = (Math.floor(((((Abs / 1000000) - days) * 60) - minutes) * 100000) * 60 / 100000).toFixed();
     days = days * sign;
-    if(tipo == 'lat') direction = days<0 ? 'S' : 'N';
-    if(tipo == 'lon') direction = days<0 ? 'W' : 'E';
+    if (tipo == 'lat') direction = days < 0 ? 'S' : 'N';
+    if (tipo == 'lon') direction = days < 0 ? 'W' : 'E';
     //else return value     
     return (days * sign) + 'º ' + minutes + "' " + secounds + "'' " + direction;
   }
+
+  gaussToGMS(norte, este, origen) {
+
+    var conv_norte = norte;
+    var conv_este = este;
+    var def_origen = origen;
+
+    //Constantes base del Elipsoide WGS84 
+
+    const conv_a = 6378137;
+    const conv_b = 6356752.31414;
+
+    const conv_p_exc = 0.00669438002301188;
+    const conv_s_exc = 0.006739496775592;
+
+
+    //Constantes de Origen
+
+    var falso_norte = 1000000;
+    var falso_este = 1000000;
+    var N_0 = 491767.53436818265;
+
+    //Constantes Origenes Gauss  
+
+    const Insular = -83.07750791666670000;
+    const Oeste_Oeste = -80.07750791666670000;
+    const Oeste = -77.07750791666670000;
+    const Central = -74.07750791666670000;
+    const Este = -71.07750791666670000;
+    const Este_Este = -68.07750791666670000;
+
+
+    //Obtener Origen
+
+    let longitud_Org: number = 0;
+
+    if (def_origen == "Insular") {
+
+      longitud_Org = Insular;
+    }
+
+    else if (def_origen == "Oeste_Oeste") {
+
+      longitud_Org = Oeste_Oeste;
+    }
+
+    else if (def_origen == "Oeste") {
+
+      longitud_Org = Oeste;
+    }
+
+    else if (def_origen == "Central") {
+
+      longitud_Org = Central;
+    }
+
+    else if (def_origen == "Este") {
+
+      longitud_Org = Este;
+    }
+
+    else if (def_origen == "Este_Este") {
+
+      longitud_Org = Este_Este;
+    }
+
+    else {
+    }
+    //Calculo terminos auxiliares para conversion.
+
+    var D_N = conv_norte - N_0;
+    var D_E = conv_este - falso_este;
+    var n = (conv_a - conv_b) / (conv_a + conv_b);
+
+    //Calculo Latitud Del Punto Guia
+
+    var Alpha_GK_GD = ((conv_a + conv_b) / 2.0) * (1.0 + (Math.pow(n, 2) / 4.0)
+      + (Math.pow(n, 4) / 64.0));
+
+    var Beta_GK_GD = (3.0 * n / 2.0) - (27.0 * Math.pow(n, 3) / 32.0)
+      + (269.0 * Math.pow(n, 5) / 512.0);
+
+    var Gamma_GK_GD = (21.0 * Math.pow(n, 2) / 16.0) - (55.0 * Math.pow(n, 4) / 32.0);
+
+    var Delta_GK_GD = (151.0 * Math.pow(n, 3) / 96.0) - (417.0 * Math.pow(n, 5) / 128.0);
+
+    var Epsilon_GK_GD = 1097.0 * Math.pow(n, 4) / 512.0;
+
+    var fi_GK_GD = (D_N / Alpha_GK_GD) + (Beta_GK_GD * Math.sin(2.0 * D_N / Alpha_GK_GD))
+      + (Gamma_GK_GD * Math.sin(4.0 * D_N / Alpha_GK_GD)) + (Delta_GK_GD * Math.sin(6.0 * D_N / Alpha_GK_GD))
+      + (Epsilon_GK_GD * Math.sin(8.0 * D_N / Alpha_GK_GD));
+
+    //Terminos Adicionales
+
+    var t = Math.tan(fi_GK_GD);
+    var eta_c_GK_GD = conv_s_exc * Math.pow(Math.cos(fi_GK_GD), 2);
+    var N = conv_a / (Math.sqrt(1.0 - (conv_p_exc * Math.pow(Math.sin(fi_GK_GD), 2))));
+
+    //Calculo Latitud
+
+    var latitud_P1 = (t / (2.0 * Math.pow(N, 2))) * (-1.0 - eta_c_GK_GD) * Math.pow(D_E, 2);
+
+    var latitud_P2 = (t / (24.0 * Math.pow(N, 4))) * (5.0 + (3.0 * Math.pow(t, 2))
+      + (6.0 * eta_c_GK_GD) - (6.0 * Math.pow(t, 2) * eta_c_GK_GD) - (3.0 * Math.pow(eta_c_GK_GD, 2))
+      - (9.0 * Math.pow(t, 2) * Math.pow(eta_c_GK_GD, 2))) * Math.pow(D_E, 4);
+
+    var latitud_P3 = (t / (720.0 * Math.pow(N, 6))) * (-61.0 - (90.0 * Math.pow(t, 2))
+      - (45.0 * Math.pow(t, 4)) - (107.0 * eta_c_GK_GD) + (162.0 * Math.pow(t, 2) * eta_c_GK_GD)
+      + (45.0 * Math.pow(t, 4) * (eta_c_GK_GD))) * Math.pow(D_E, 6);
+
+    var latitud_P4 = (t / (40320.0 * Math.pow(N, 8))) * (1385.0 + (3633.0 * Math.pow(t, 2))
+      + (4096.0 * Math.pow(t, 4)) + (1575.0 * Math.pow(t, 6))) * Math.pow(D_E, 8);
+
+    var latitud_S = fi_GK_GD + latitud_P1 + latitud_P2 + latitud_P3 + latitud_P4;
+
+    var red_lat = (Math.round((latitud_S * 180 / Math.PI) * 1000000000)) / 1000000000;
+
+    let latitud_F = red_lat;
+
+    //Calculo Longitud
+
+    var longitud_P1 = (1.0 / (N * Math.cos(fi_GK_GD))) * (D_E);
+
+    var longitud_P2 = (1.0 / (6.0 * Math.pow(N, 3) * Math.cos(fi_GK_GD))) * (-1.0 - (2.0 * Math.pow(t, 2))
+      - (eta_c_GK_GD)) * Math.pow(D_E, 3);
+
+    var longitud_P3 = (1.0 / (120.0 * Math.pow(N, 5) * Math.cos(fi_GK_GD))) * (5.0
+      - (28.0 * Math.pow(t, 2)) + (24.0 * Math.pow(t, 4)) + (6.0 * eta_c_GK_GD)
+      + (8.0 * Math.pow(t, 2) * (eta_c_GK_GD))) * Math.pow(D_E, 5);
+
+    var longitud_P4 = (1.0 / (5040.0 * Math.pow(N, 7) * Math.cos(fi_GK_GD))) * (-61.0
+      - (662.0 * Math.pow(t, 2)) - (1320.0 * Math.pow(t, 4)) - (720.0 * Math.pow(t, 6))) * Math.pow(D_E, 7);
+
+    var longitud_S = (longitud_Org * Math.PI / 180) + longitud_P1 + longitud_P2 + longitud_P3 + longitud_P4;
+
+    var red_lon = (Math.round((longitud_S * 180 / Math.PI) * 1000000000)) / 1000000000;
+
+    let longitud_F = red_lon;
+
+    let respuesta = {
+      latitud_F: latitud_F,
+      longitud_F: longitud_F
+    }
+
+    return respuesta;
+
+  }
+
 }

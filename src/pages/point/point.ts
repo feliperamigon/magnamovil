@@ -16,6 +16,8 @@ export class PointPage {
   longGmsToDecimal: any;
   latDecimalToGms: any;
   longDecimalToGms: any;
+  gaussToGMS: any;
+  gaussToDecimal: any;
   transformationsActive: boolean = false;
   gmsToGauss: any;
 
@@ -45,6 +47,11 @@ export class PointPage {
     this.gmsToGauss = this._magna.decimalToGauss(parseFloat(this.latGmsToDecimal.decimal), parseFloat(this.longGmsToDecimal.decimal));
   }
 
+  gaussTransformations(norte, este, origen) {
+    this.transformationsActive = true;
+    this.gaussToGMS = this._magna.gaussToGMS(norte, este, origen);    
+  }
+
   generateTransformations(point) {
     switch (point.type) {
       case 'latlng':
@@ -56,7 +63,7 @@ export class PointPage {
         break;
 
       case 'gauss':
-
+        this.gaussTransformations(point.north, point.east, point.origin);
         break;
 
       default:

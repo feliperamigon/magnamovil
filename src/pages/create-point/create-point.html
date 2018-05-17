@@ -77,7 +77,16 @@
         <ion-list style="display: flex;">
 
           <ion-item class="coord-item">
-            <ion-input  [(ngModel)]="newPoint.lngDegrees" type="text" placeholder="S"></ion-input>
+            <ion-input [(ngModel)]="newPoint.lngDegrees" type="number" placeholder="G"></ion-input>
+          </ion-item>
+
+          <ion-item class="coord-item">
+            <ion-input [(ngModel)]="newPoint.lngMinutes" type="number" placeholder="M"></ion-input>
+          </ion-item>
+
+
+          <ion-item class="coord-item">
+            <ion-input [(ngModel)]="newPoint.lngSeconds" type="number" placeholder="S"></ion-input>
           </ion-item>
 
         </ion-list>
@@ -100,51 +109,51 @@
       <h5 class="coord-title">Entrada Coordenadas Elipsoidales Decimal</h5>
 
       <div class="single-coord">
-          <span class="single-coord-title">Latitud:</span>
-  
-          <!-- Inputs -->
-          <ion-list style="display: flex;">
-  
-            <ion-item class="coord-item">
-              <ion-input [(ngModel)]="newPoint.lat" type="text" placeholder="e.g 4.59533859"></ion-input>
-            </ion-item>
-  
-          </ion-list>
-  
-        </div>
-  
-        <ion-item class="hemisphire">
-          <ion-label>Hemisferio</ion-label>
-          <ion-select [(ngModel)]="newPoint.latHemisphire">
-            <ion-option value="N">Norte (N)</ion-option>
-            <ion-option value="S">Sur (S)</ion-option>
-          </ion-select>
-        </ion-item>
-  
-        <hr>
-  
-        <div class="single-coord">
-          <span class="single-coord-title">Longitud:</span>
-  
-          <!-- Inputs -->
-          <ion-list style="display: flex;">
-  
-            <ion-item class="coord-item">
-              <ion-input [(ngModel)]="newPoint.long" type="text" placeholder="e.g 72.3377278 "></ion-input>
-            </ion-item>
-          </ion-list>
-  
-        </div>
-  
-        <ion-item class="hemisphire">
-          <ion-label>Hemisferio</ion-label>
-          <ion-select [(ngModel)]="newPoint.lngHemisphire">
-            <ion-option value="N">Este (E)</ion-option>
-            <ion-option value="W">Oeste (W)</ion-option>
-          </ion-select>
-        </ion-item>
-  
-        <button ion-button outline block color="primary" (click)="showCreateLatLng()">Crear</button>
+        <span class="single-coord-title">Latitud:</span>
+
+        <!-- Inputs -->
+        <ion-list style="display: flex;">
+
+          <ion-item class="coord-item">
+            <ion-input [(ngModel)]="newPoint.lat" type="text" placeholder="e.g 4.59533859"></ion-input>
+          </ion-item>
+
+        </ion-list>
+
+      </div>
+
+      <ion-item class="hemisphire">
+        <ion-label>Hemisferio</ion-label>
+        <ion-select [(ngModel)]="newPoint.latHemisphire">
+          <ion-option value="N">Norte (N)</ion-option>
+          <ion-option value="S">Sur (S)</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <hr>
+
+      <div class="single-coord">
+        <span class="single-coord-title">Longitud:</span>
+
+        <!-- Inputs -->
+        <ion-list style="display: flex;">
+
+          <ion-item class="coord-item">
+            <ion-input [(ngModel)]="newPoint.long" type="text" placeholder="e.g 72.3377278 "></ion-input>
+          </ion-item>
+        </ion-list>
+
+      </div>
+
+      <ion-item class="hemisphire">
+        <ion-label>Hemisferio</ion-label>
+        <ion-select [(ngModel)]="newPoint.lngHemisphire">
+          <ion-option value="N">Este (E)</ion-option>
+          <ion-option value="W">Oeste (W)</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <button ion-button outline block color="primary" (click)="showCreateLatLng()">Crear</button>
 
     </div>
 
@@ -152,43 +161,44 @@
       <h5 class="coord-title">Entrada Coordenadas Gauss Krugger</h5>
 
       <div class="single-coord">
-          <span class="single-coord-title">Norte:</span>
-  
-          <!-- Inputs -->
-          <ion-list style="display: flex;">
-  
-            <ion-item class="coord-item">
-              <ion-input [(ngModel)]="newPoint.north" type="text" placeholder="e.g 1000027.968"></ion-input>
-            </ion-item>
-  
-          </ion-list>
-  
-        </div>
-  
-        <div class="single-coord">
-          <span class="single-coord-title">Este:</span>
-  
-          <!-- Inputs -->
-          <ion-list style="display: flex;">
-  
-            <ion-item class="coord-item">
-              <ion-input [(ngModel)]="newPoint.east" type="text" placeholder="e.g 860149.772 "></ion-input>
-            </ion-item>
-          </ion-list>
-  
-        </div>
-  
-        <ion-item class="hemisphire">
-          <ion-label>Origen</ion-label>
-          <ion-select [(ngModel)]="newPoint.origin">
-            <ion-option value="E">Este</ion-option>
-            <ion-option value="N">Norte</ion-option>
-            <ion-option value="S">Sur</ion-option>
-            <ion-option value="O">Oriente</ion-option>
-          </ion-select>
-        </ion-item>
-  
-        <button ion-button outline block color="primary" (click)="showCreateGauss()">Crear</button>
+        <span class="single-coord-title">Norte:</span>
+
+        <!-- Inputs -->
+        <ion-list style="display: flex;">
+
+          <ion-item class="coord-item">
+            <ion-input [(ngModel)]="newPoint.north" type="text" placeholder="e.g 1000027.968"></ion-input>
+          </ion-item>Y
+
+        </ion-list>
+
+      </div>
+
+      <div class="single-coord">
+        <span class="single-coord-title">Este:</span>
+
+        <!-- Inputs -->
+        <ion-list style="display: flex;">
+
+          <ion-item class="coord-item">
+            <ion-input [(ngModel)]="newPoint.east" type="text" placeholder="e.g 860149.772 "></ion-input>
+          </ion-item>
+        </ion-list>
+
+      </div>
+
+      <ion-item class="hemisphire">
+        <ion-label>Origen</ion-label>
+        <ion-select [(ngModel)]="newPoint.origin">
+          <ion-option value="Insular">Insular</ion-option>
+          <ion-option value="Central">Central</ion-option>
+          <ion-option value="Oeste">Oeste</ion-option>
+          <ion-option value="Este">Este</ion-option>
+          <ion-option value="Este_Este">Este_Este</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <button ion-button outline block color="primary" (click)="showCreateGauss()">Crear</button>
 
     </div>
 
