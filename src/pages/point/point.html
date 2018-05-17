@@ -103,13 +103,13 @@ s l
 
       <div *ngIf="point?.type === 'gauss'"  class="coord-transformations">
 
-        <h6 style="text-decoration: underline;">Elipsoidales Grados, Minutos y Segundos</h6>
-        <p><b>Latitud: </b>{{gaussToGMS.latitud_F}}</p>
-        <p><b>Longitud: </b>{{gaussToGMS.longitud_F}}</p>
+        <h6 style="text-decoration: underline;">Elipsoidal Decimal</h6>
+        <p><b>Latitud: </b>{{gaussToDecimal.latitud_F}}</p>
+        <p><b>Longitud: </b>{{gaussToDecimal.longitud_F}}</p>
 
-        <!-- <h6 style="text-decoration: underline;">Elipsoidal Decimal</h6>
-        <p><b>Latitud: </b>{{latGmsToDecimal?.decimal}}</p>
-        <p><b>Longitud: </b>{{longGmsToDecimal?.decimal}}</p>> -->
+        <h6 style="text-decoration: underline;">Elipsoidales Grados, Minutos y Segundos</h6>
+        <p><b>Latitud: </b>{{latGaussToGMS}}</p>
+        <p><b>Longitud: </b>{{longGaussToGMS}}</p>
         
       </div>
 
