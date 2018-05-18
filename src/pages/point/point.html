@@ -29,8 +29,8 @@ s l
 
       <!-- Type === LatLng -->
       <div *ngIf="point?.type === 'latlng'" class="coord-type-section">
-        <p>Latitud: {{point?.lat}} - ({{point?.latHemisphire}})</p>
-        <p>Longitud: {{point?.long}} - ({{point?.lngHemisphire}})</p>
+        <p>Latitud: {{point?.lat}} </p>
+        <p>Longitud: {{point?.long}} </p>
       </div>
       <!-- Type === LatLng -->
 
@@ -113,7 +113,7 @@ s l
 
         <h6 style="text-decoration: underline;">Elipsoidales Grados, Minutos y Segundos</h6>
         <p><b>Latitud: </b>{{latGaussToGMS.g_la}}° {{latGaussToGMS.m_la}}' {{latGaussToGMS.s_la}}'' ({{latGaussToGMS.h_la}})</p>
-        <p><b>Longitud: </b>{{longGaussToGMS.g_lo}}° {{longGaussToGMS.m_lo}}' {{longGaussToGMS.s_lo}}'' ({{longGaussToGMS.h_lo}})</p>
+        <p><b>Longitud: </b>{{latGaussToGMS.g_lo}}° {{latGaussToGMS.m_lo}}' {{latGaussToGMS.s_lo}}'' ({{latGaussToGMS.h_lo}})</p>
 
         <br>
         <br>

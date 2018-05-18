@@ -52,8 +52,7 @@ export class PointPage {
   gaussTransformations(norte, este, origen) {
     this.transformationsActive = true;
     this.gaussToDecimal = this._magna.gaussToGMS(norte, este, origen);
-    this.latGaussToGMS = this._magna.decimalToGms(parseFloat(this.gaussToDecimal.latitud_F), 'lat');
-    this.longGaussToGMS = this._magna.decimalToGms(parseFloat(this.gaussToDecimal.longitud_F), 'lon');
+    this.latGaussToGMS = this._magna.decimalToGms(parseFloat(this.gaussToDecimal.latitud_F), parseFloat(this.gaussToDecimal.longitud_F));
     this.getPolygon(norte, este, origen);
   }
 
