@@ -38,6 +38,7 @@ export class PointPage {
     this.transformationsActive = true;
     this.decimalToGauss = this._magna.decimalToGauss(parseFloat(latitud), parseFloat(longitud));
     this.decimalToGMS = this._magna.decimalToGms(parseFloat(latitud), parseFloat(longitud));
+    this.getPolygon(this.decimalToGauss.norte, this.decimalToGauss.este, this.decimalToGauss.origen);
   }
 
   gmsTransformations(latGrados?, latMinutos?, latSegundos?, latDireccion?, longGrados?, longMinutos?, longSegundos?, longDireccion?) {
@@ -45,6 +46,7 @@ export class PointPage {
     this.latGmsToDecimal = this._magna.gmsToDecimal(parseFloat(latGrados), parseFloat(latMinutos), parseFloat(latSegundos), latDireccion.toLowerCase());
     this.longGmsToDecimal = this._magna.gmsToDecimal(parseFloat(longGrados), parseFloat(longMinutos), parseFloat(longSegundos), longDireccion.toLowerCase());
     this.gmsToGauss = this._magna.decimalToGauss(parseFloat(this.latGmsToDecimal.decimal), parseFloat(this.longGmsToDecimal.decimal));
+    this.getPolygon(this.gmsToGauss.norte, this.gmsToGauss.este, this.gmsToGauss.origen);
   }
 
   gaussTransformations(norte, este, origen) {
@@ -52,10 +54,10 @@ export class PointPage {
     this.gaussToDecimal = this._magna.gaussToGMS(norte, este, origen);
     this.latGaussToGMS = this._magna.decimalToGms(parseFloat(this.gaussToDecimal.latitud_F), 'lat');
     this.longGaussToGMS = this._magna.decimalToGms(parseFloat(this.gaussToDecimal.longitud_F), 'lon');
+    this.getPolygon(norte, este, origen);
   }
 
   generateTransformations(point) {
-    this.getPolygon( point.north,point.east, point.origin);
     switch (point.type) {
       case 'latlng':
         this.decimalTransformations(point.lat, point.long);
@@ -98,7 +100,7 @@ export class PointPage {
   }
 
   getNameOfPolygon(norte, este, polygons) {
-    let respuesta: string = '';
+    let respuesta: string = 'No se encontró una referencia';
     let cont = 0;
 
     for(let unit of polygons) {
