@@ -2,6 +2,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { HttpClientModule } from "@angular/common/http";
 
 // ThirdParty libraries ( Cordova, Database, etc)
 import { NativeStorage} from "@ionic-native/native-storage";
@@ -44,6 +45,7 @@ Es el modulo principal de ionic.
   ],
   imports: [
     BrowserModule, // Todos los modulos que son de librerias externas se declaran aca
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

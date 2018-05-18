@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
-import {m} from "@angular/core/src/render3";
+import 'rxjs/Rx';
+import {HttpClient} from "@angular/common/http";
 
 @Injectable()
 export class MagnaProvider {
 
-  constructor() {
+  constructor(public http: HttpClient) {
   }
 
   decimalToGauss(latitud, longitud) {
@@ -429,6 +430,32 @@ export class MagnaProvider {
     }
 
     return respuesta;
+
+  }
+
+  getPolygonData(origen) {
+
+    let url: string = '';
+    if (origen === 'Central') {
+      url = 'Central.json';
+    }
+    if (origen === 'Este') {
+      url = 'Este.json';
+    }
+    if (origen === 'Este_Este') {
+      url = 'Este_Este.json';
+    }
+    if (origen === 'Oeste') {
+      url = 'Oeste.json';
+    }
+    if (origen === 'Oeste_Oeste') {
+      url = 'Oeste_Oeste.json';
+    }
+
+    let file = '../../assets/geojson/'+ url
+    return this.http.get(file).map((response: any) => {
+      return response.features;
+    });
 
   }
 

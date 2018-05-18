@@ -20,6 +20,7 @@ export class PointPage {
   gaussToDecimal: any;
   transformationsActive: boolean = false;
   gmsToGauss: any;
+  plancha: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private _utils: UtilsProvider, public _magna: MagnaProvider) {
   }
@@ -38,7 +39,6 @@ export class PointPage {
     this.transformationsActive = true;
     this.decimalToGauss = this._magna.decimalToGauss(parseFloat(latitud), parseFloat(longitud));
     this.decimalToGMS = this._magna.decimalToGms(parseFloat(latitud), parseFloat(longitud));
-    console.log(this.decimalToGMS);
   }
 
   gmsTransformations(latGrados?, latMinutos?, latSegundos?, latDireccion?, longGrados?, longMinutos?, longSegundos?, longDireccion?) {
@@ -56,6 +56,7 @@ export class PointPage {
   }
 
   generateTransformations(point) {
+    this.getPolygon( point.north,point.east, point.origin);
     switch (point.type) {
       case 'latlng':
         this.decimalTransformations(point.lat, point.long);
@@ -72,6 +73,44 @@ export class PointPage {
       default:
         break;
     }
+  }
+
+  getPolygon(norte, este, origen){
+    let polygons = [];
+    let polygon = {
+      name: '',
+      coordinates: []
+    };
+
+    this._magna.getPolygonData(origen).subscribe(res => {
+      for(let jsonPolygon of res) {
+        polygon = {
+          name: '',
+          coordinates: []
+        };
+        polygon.name = jsonPolygon.properties.PLANCHA;
+        polygon.coordinates = jsonPolygon.geometry.coordinates[0];
+        polygons.push(polygon);
+      }
+      this.plancha = this.getNameOfPolygon(norte, este, polygons);
+      console.log('Plancha: ' + this.plancha);
+    });
+
+  }
+
+  getNameOfPolygon(norte, este, polygons) {
+    let respuesta: string = '';
+    let cont = 0;
+
+    for(let unit of polygons) {
+      if(este >= Math.round(unit.coordinates[0][0]) && este <= Math.round(unit.coordinates[2][0])) {
+        if(norte >= Math.round(unit.coordinates[0][1]) && norte <= Math.round(unit.coordinates[2][1])){
+          respuesta = unit.name;
+        }
+      }
+    }
+
+    return respuesta;
   }
 
 }
