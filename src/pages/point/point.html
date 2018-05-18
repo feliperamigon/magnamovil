@@ -70,7 +70,7 @@ s l
   <ion-card *ngIf="transformationsActive">
 
     <ion-card-header>
-      Transformaciones
+      Resultado de las transformaciones
     </ion-card-header>
 
     <ion-card-content>
@@ -108,8 +108,8 @@ s l
         <p><b>Longitud: </b>{{gaussToDecimal.longitud_F}}</p>
 
         <h6 style="text-decoration: underline;">Elipsoidales Grados, Minutos y Segundos</h6>
-        <p><b>Latitud: </b>{{latGaussToGMS}}</p>
-        <p><b>Longitud: </b>{{longGaussToGMS}}</p>
+        <p><b>Latitud: </b>{{latGaussToGMS.g_la}}° {{latGaussToGMS.m_la}}' {{latGaussToGMS.s_la}}'' ({{latGaussToGMS.h_la}})</p>
+        <p><b>Longitud: </b>{{longGaussToGMS.g_lo}}° {{longGaussToGMS.m_lo}}' {{longGaussToGMS.s_lo}}'' ({{longGaussToGMS.h_lo}})</p>
 
         <br>
         <br>

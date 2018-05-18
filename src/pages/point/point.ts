@@ -27,7 +27,6 @@ export class PointPage {
 
   ionViewDidLoad() {
     this.getCurrentPoint();
-    this.decimalTransformations();
   }
 
   getCurrentPoint() {
