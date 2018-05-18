@@ -74,12 +74,12 @@ s l
     </ion-card-header>
 
     <ion-card-content>
-      
+
       <div *ngIf="point?.type === 'latlng'"  class="coord-transformations">
 
         <h6 style="text-decoration: underline;">Elipsoidales Grados, Minutos y Segundos</h6>
-        <p><b>Latitud: </b>{{latDecimalToGms}}</p>
-        <p><b>Longitud: </b>{{longDecimalToGms }}</p>
+        <p><b>Latitud: </b>{{decimalToGMS.g_la}}° {{decimalToGMS.m_la}}' {{decimalToGMS.s_la}}'' ({{decimalToGMS.h_la}})</p>
+        <p><b>Longitud: </b>{{decimalToGMS.g_lo}}° {{decimalToGMS.m_lo}}' {{decimalToGMS.s_lo}}'' ({{decimalToGMS.h_lo}})</p>
 
         <h6 style="text-decoration: underline;">Gauss Krugger</h6>
         <p><b>Norte: </b>{{decimalToGauss?.norte}}</p>
@@ -98,7 +98,7 @@ s l
         <p><b>Norte: </b>{{gmsToGauss?.norte}}</p>
         <p><b>Este: </b>{{gmsToGauss?.este}}</p>
         <p><b>Origen: </b>{{gmsToGauss?.origen}}</p>
-        
+
       </div>
 
       <div *ngIf="point?.type === 'gauss'"  class="coord-transformations">
@@ -110,7 +110,7 @@ s l
         <h6 style="text-decoration: underline;">Elipsoidales Grados, Minutos y Segundos</h6>
         <p><b>Latitud: </b>{{latGaussToGMS}}</p>
         <p><b>Longitud: </b>{{longGaussToGMS}}</p>
-        
+
       </div>
 
     </ion-card-content>

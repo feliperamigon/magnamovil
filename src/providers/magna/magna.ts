@@ -1,16 +1,18 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {m} from "@angular/core/src/render3";
 
 @Injectable()
 export class MagnaProvider {
 
-  constructor() { }
+  constructor() {
+  }
 
   decimalToGauss(latitud, longitud) {
     var conv_latitud = latitud;
     var conv_longitud = longitud;
 
 
-    //Constantes base del Elipsoide WGS84 
+    //Constantes base del Elipsoide WGS84
 
     const conv_a = 6378137;
     const conv_b = 6356752.31414;
@@ -29,7 +31,7 @@ export class MagnaProvider {
     const Limit_7 = -84.5775079166667;
 
 
-    //Constantes Origenes Gauss  
+    //Constantes Origenes Gauss
 
     const Insular = -83.07750791666670000;
     const Oeste_Oeste = -80.07750791666670000;
@@ -37,7 +39,6 @@ export class MagnaProvider {
     const Central = -74.07750791666670000;
     const Este = -71.07750791666670000;
     const Este_Este = -68.07750791666670000;
-
 
 
     //Definicion de origen
@@ -188,7 +189,7 @@ export class MagnaProvider {
       direccion = '';
     }
 
-    dec = Math.round((Math.abs(grados) + ((minutos * 60) + segundos) / 3600) * 1000000) / 1000000;
+    dec = Math.round((Math.abs(grados) + (minutos / 60) + (segundos / 3600)) * 1000000000) / 1000000000;
 
     if (isNaN(direccion) || direccion == '') {
       dec = dec * signo;
@@ -201,31 +202,87 @@ export class MagnaProvider {
 
   }
 
-  decimalToGms(valor, tipo) {
-    var sign = 1, Abs = 0;
-    var days, minutes, secounds, direction;
+  decimalToGms(valor_lat, valor_lon) {
+    var grado_d_lat = valor_lat;
+    var grado_d_lon = valor_lon;
 
-    if (valor < 0) { sign = -1; }
-    Abs = Math.abs(Math.round(valor * 1000000));
-    //Math.round is used to eliminate the small error caused by rounding in the computer:
-    //e.g. 0.2 is not the same as 0.20000000000284
-    //Error checks
-    if (tipo == "lat" && Abs > (90 * 1000000)) {
-      //alert(" Degrees Latitude must be in the range of -90. to 90. ");
-      return false;
-    } else if (tipo == "lon" && Abs > (180 * 1000000)) {
-      //alert(" Degrees Longitude must be in the range of -180 to 180. ");
-      return false;
+
+    var grd_la, grd_f_la, min_la, segu_la, hemisfer_la, grd_lo, grd_f_lo, min_lo, segu_lo, hemisfer_lo;
+
+    //Calculo Latitud en GMS
+    if (grado_d_lat < 0) {
+
+      grd_la = (Math.floor(grado_d_lat)) + 1;
+
+    }
+    else {
+      grd_la = Math.floor(grado_d_lat);
     }
 
-    days = Math.floor(Abs / 1000000);
-    minutes = Math.floor(((Abs / 1000000) - days) * 60);
-    secounds = (Math.floor(((((Abs / 1000000) - days) * 60) - minutes) * 100000) * 60 / 100000).toFixed();
-    days = days * sign;
-    if (tipo == 'lat') direction = days < 0 ? 'S' : 'N';
-    if (tipo == 'lon') direction = days < 0 ? 'W' : 'E';
-    //else return value     
-    return (days * sign) + 'º ' + minutes + "' " + secounds + "'' " + direction;
+    grd_f_la = Math.abs(grd_la);
+
+    min_la = Math.floor((Math.abs(grd_la - grado_d_lat)) * 60);
+
+    segu_la = (Math.round(((((Math.abs(grd_la - grado_d_lat)) * 60) - min_la) * 60) * 100000)) / 100000;
+
+    if (grd_la < 0) {
+
+      hemisfer_la = "S";
+
+    }
+    else {
+      hemisfer_la = "N";
+    }
+
+
+    //Calculo Longitud en GMS
+
+    if (grado_d_lon < 0) {
+
+      grd_lo = (Math.floor(grado_d_lon)) + 1;
+
+    }
+    else {
+      grd_lo = Math.floor(grado_d_lon);
+    }
+
+    grd_f_lo = Math.abs(grd_lo);
+
+    min_lo = Math.floor((Math.abs(grd_lo - grado_d_lon)) * 60);
+
+    segu_lo = (Math.round(((((Math.abs(grd_lo - grado_d_lon)) * 60) - min_lo) * 60) * 100000)) / 100000;
+
+    if (grd_lo < 0) {
+
+      hemisfer_lo = "W";
+
+    }
+    else {
+      hemisfer_lo = "E";
+    }
+
+
+    let g_la = grd_f_la;
+    let m_la = (min_la);
+    let s_la = (segu_la);
+    let h_la = (hemisfer_la);
+
+    let g_lo = (grd_f_lo);
+    let m_lo = (min_lo);
+    let s_lo = (segu_lo);
+    let h_lo = (hemisfer_lo);
+
+    return {
+      g_la: g_la,
+      m_la: m_la,
+      s_la: s_la,
+      h_la: h_la,
+      g_lo: g_lo,
+      m_lo: m_lo,
+      s_lo: s_lo,
+      h_lo: h_lo
+    }
+
   }
 
   gaussToGMS(norte, este, origen) {
@@ -234,7 +291,7 @@ export class MagnaProvider {
     var conv_este = este;
     var def_origen = origen;
 
-    //Constantes base del Elipsoide WGS84 
+    //Constantes base del Elipsoide WGS84
 
     const conv_a = 6378137;
     const conv_b = 6356752.31414;
@@ -249,7 +306,7 @@ export class MagnaProvider {
     var falso_este = 1000000;
     var N_0 = 491767.53436818265;
 
-    //Constantes Origenes Gauss  
+    //Constantes Origenes Gauss
 
     const Insular = -83.07750791666670000;
     const Oeste_Oeste = -80.07750791666670000;

@@ -14,8 +14,7 @@ export class PointPage {
   decimalToGauss: any;
   latGmsToDecimal: any;
   longGmsToDecimal: any;
-  latDecimalToGms: any;
-  longDecimalToGms: any;
+  decimalToGMS: any;
   latGaussToGMS: any;
   longGaussToGMS: any;
   gaussToDecimal: any;
@@ -27,6 +26,7 @@ export class PointPage {
 
   ionViewDidLoad() {
     this.getCurrentPoint();
+    this.decimalTransformations();
   }
 
   getCurrentPoint() {
@@ -34,11 +34,11 @@ export class PointPage {
     this._utils.presentToast('Punto recibido: ' + this.point, 5000);
   }
 
-  decimalTransformations(latitud, longitud) {
+  decimalTransformations(latitud?, longitud?) {
     this.transformationsActive = true;
     this.decimalToGauss = this._magna.decimalToGauss(parseFloat(latitud), parseFloat(longitud));
-    this.latDecimalToGms = this._magna.decimalToGms(latitud, 'lat');
-    this.longDecimalToGms = this._magna.decimalToGms(longitud, 'lon');
+    this.decimalToGMS = this._magna.decimalToGms(parseFloat(latitud), parseFloat(longitud));
+    console.log(this.decimalToGMS);
   }
 
   gmsTransformations(latGrados?, latMinutos?, latSegundos?, latDireccion?, longGrados?, longMinutos?, longSegundos?, longDireccion?) {
