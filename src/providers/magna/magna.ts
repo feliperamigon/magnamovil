@@ -452,8 +452,8 @@ export class MagnaProvider {
       url = 'Oeste_Oeste.json';
     }
 
-    let file = '../../assets/geojson/'+ url
-    return this.http.get(file).map((response: any) => {
+    let file = '../../assets/geojson/'+ url;
+    return this.http.get('../../assets/geojson/'+ url).map((response: any) => {
       return response.features;
     });
 

@@ -31,7 +31,6 @@ export class PointPage {
 
   getCurrentPoint() {
     this.point = this.navParams.get('point');
-    this._utils.presentToast('Punto recibido: ' + this.point, 5000);
   }
 
   decimalTransformations(latitud?, longitud?) {
@@ -39,6 +38,7 @@ export class PointPage {
     this.decimalToGauss = this._magna.decimalToGauss(parseFloat(latitud), parseFloat(longitud));
     this.decimalToGMS = this._magna.decimalToGms(parseFloat(latitud), parseFloat(longitud));
     this.getPolygon(this.decimalToGauss.norte, this.decimalToGauss.este, this.decimalToGauss.origen);
+    // this.getPolygon(1792000, 1140000, 'Central');
   }
 
   gmsTransformations(latGrados?, latMinutos?, latSegundos?, latDireccion?, longGrados?, longMinutos?, longSegundos?, longDireccion?) {
@@ -83,6 +83,7 @@ export class PointPage {
     };
 
     this._magna.getPolygonData(origen).subscribe(res => {
+      this._utils.presentToast('Respuesta: '+  res.length, 100000);
       for(let jsonPolygon of res) {
         polygon = {
           name: '',
@@ -93,7 +94,9 @@ export class PointPage {
         polygons.push(polygon);
       }
       this.plancha = this.getNameOfPolygon(norte, este, polygons);
-      console.log('Plancha: ' + this.plancha);
+      this._utils.presentToast('Plancha: ' + this.plancha, 50000);
+    }, error => { 
+      this._utils.presentToast('Error: ' + JSON.stringify(error), 100000);
     });
 
   }
