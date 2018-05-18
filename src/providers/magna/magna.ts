@@ -453,6 +453,7 @@ export class MagnaProvider {
     }
 
     let file = '../../assets/geojson/'+ url;
+    // Angular tiene un modulo HTTP (trasmision de datos).
     return this.http.get('../../assets/geojson/'+ url).map((response: any) => {
       return response.features;
     });

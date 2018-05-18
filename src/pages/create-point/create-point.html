@@ -45,15 +45,15 @@
         <ion-list style="display: flex;">
 
           <ion-item class="coord-item">
-            <ion-input [(ngModel)]="newPoint.latDegrees" type="text" placeholder="G"></ion-input>
+            <ion-input [(ngModel)]="newPoint.latDegrees" type="number" placeholder="G"></ion-input>
           </ion-item>
 
           <ion-item class="coord-item">
-            <ion-input [(ngModel)]="newPoint.latMinutes" type="text" placeholder="M"></ion-input>
+            <ion-input [(ngModel)]="newPoint.latMinutes" type="number" placeholder="M"></ion-input>
           </ion-item>
 
           <ion-item class="coord-item">
-            <ion-input [(ngModel)]="newPoint.latSeconds" type="text" placeholder="S"></ion-input>
+            <ion-input [(ngModel)]="newPoint.latSeconds" type="number" placeholder="S"></ion-input>
           </ion-item>
 
         </ion-list>
@@ -167,7 +167,7 @@
         <ion-list style="display: flex;">
 
           <ion-item class="coord-item">
-            <ion-input [(ngModel)]="newPoint.north" type="text" placeholder="e.g 1000027.968"></ion-input>
+            <ion-input [(ngModel)]="newPoint.north" type="number" placeholder="e.g 1000027.968"></ion-input>
           </ion-item>Y
 
         </ion-list>
@@ -181,7 +181,7 @@
         <ion-list style="display: flex;">
 
           <ion-item class="coord-item">
-            <ion-input [(ngModel)]="newPoint.east" type="text" placeholder="e.g 860149.772 "></ion-input>
+            <ion-input [(ngModel)]="newPoint.east" type="number" placeholder="e.g 860149.772 "></ion-input>
           </ion-item>
         </ion-list>
 
@@ -195,6 +195,7 @@
           <ion-option value="Oeste">Oeste</ion-option>
           <ion-option value="Este">Este</ion-option>
           <ion-option value="Este_Este">Este_Este</ion-option>
+          <ion-option value="Oeste_Oeste">Este_Este</ion-option>
         </ion-select>
       </ion-item>
 

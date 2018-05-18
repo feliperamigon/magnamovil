@@ -27,6 +27,7 @@ export class PointPage {
 
   ionViewDidLoad() {
     this.getCurrentPoint();
+    this.getPolygon(1015209.143, 1134154.543, 'Este');
   }
 
   getCurrentPoint() {
@@ -100,12 +101,12 @@ export class PointPage {
   }
 
   getNameOfPolygon(norte, este, polygons) {
-    let respuesta: string = 'No se encontró una referencia';
-    let cont = 0;
-
+    let respuesta: string = 'No se encontró una plancha en referencia a las coordenadas ingresadas';
+    console.log('Norte: ' + norte, 'Este: ' + este);
     for(let unit of polygons) {
-      if(este >= (Math.round(unit.coordinates[0][0] * 1000) / 1000) && este <= (Math.round(unit.coordinates[2][0] * 1000) / 1000)) {
-        if(norte >= (Math.round(unit.coordinates[0][1] * 1000) / 1000) && norte <= (Math.round(unit.coordinates[2][1] * 1000) / 1000)){
+      if(este >= (Math.round(unit.coordinates[2][0] * 1000) / 1000) && este <= (Math.round(unit.coordinates[0][0] * 1000) / 1000)) {
+        if(norte >= (Math.round(unit.coordinates[2][1] * 1000) / 1000) && norte <= (Math.round(unit.coordinates[0][1] * 1000) / 1000)){
+          console.log('PLANCHA ENCONTRADA: ' ,unit);
           respuesta = unit.name;
         }
       }
