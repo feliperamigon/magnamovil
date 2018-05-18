@@ -18,7 +18,7 @@
 
     <ion-list>
 
-      <ion-item class="point-item" (click)="goToPoint()">
+      <ion-item *ngIf="isWeb"  class="point-item" (click)="goToPoint()">
         <ion-avatar item-start>
           <ion-icon class="point-icon" color="secondary" name="md-locate"></ion-icon>
         </ion-avatar>

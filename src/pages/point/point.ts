@@ -83,7 +83,6 @@ export class PointPage {
     };
 
     this._magna.getPolygonData(origen).subscribe(res => {
-      this._utils.presentToast('Respuesta: '+  res.length, 100000);
       for(let jsonPolygon of res) {
         polygon = {
           name: '',
@@ -94,9 +93,8 @@ export class PointPage {
         polygons.push(polygon);
       }
       this.plancha = this.getNameOfPolygon(norte, este, polygons);
-      this._utils.presentToast('Plancha: ' + this.plancha, 50000);
     }, error => { 
-      this._utils.presentToast('Error: ' + JSON.stringify(error), 100000);
+      this._utils.presentToast('Error: ' + JSON.stringify(error), 10000);
     });
 
   }
@@ -106,8 +104,8 @@ export class PointPage {
     let cont = 0;
 
     for(let unit of polygons) {
-      if(este >= Math.round(unit.coordinates[0][0]) && este <= Math.round(unit.coordinates[2][0])) {
-        if(norte >= Math.round(unit.coordinates[0][1]) && norte <= Math.round(unit.coordinates[2][1])){
+      if(este >= (Math.round(unit.coordinates[0][0] * 1000) / 1000) && este <= (Math.round(unit.coordinates[2][0] * 1000) / 1000)) {
+        if(norte >= (Math.round(unit.coordinates[0][1] * 1000) / 1000) && norte <= (Math.round(unit.coordinates[2][1] * 1000) / 1000)){
           respuesta = unit.name;
         }
       }
